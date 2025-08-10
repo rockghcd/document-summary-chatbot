@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document Summary Chatbot</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="header-content">
+                <h1><i class="fas fa-robot"></i> Document Summary Chatbot</h1>
+                <p>Upload your documents and get AI-powered summaries instantly</p>
+            </div>
+        </header>
+
+        <main class="main-content">
+            <div class="upload-section" id="uploadSection">
+                <div class="upload-area" id="uploadArea">
+                    <div class="upload-content">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <h3>Upload Your Document</h3>
+                        <p>Drag and drop your file here or click to browse</p>
+                        <p class="file-types">Supported formats: PDF, DOCX, TXT (Max 10MB)</p>
+                        <input type="file" id="fileInput" accept=".pdf,.docx,.txt" hidden>
+                        <button class="upload-btn" onclick="document.getElementById('fileInput').click()">
+                            Choose File
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chat-section" id="chatSection" style="display: none;">
+                <div class="document-info">
+                    <h3><i class="fas fa-file-alt"></i> <span id="documentName"></span></h3>
+                    <button class="new-document-btn" onclick="resetApp()">
+                        <i class="fas fa-plus"></i> New Document
+                    </button>
+                </div>
+
+                <div class="summary-container">
+                    <div class="summary-header">
+                        <h3><i class="fas fa-lightbulb"></i> Document Summary</h3>
+                        <button class="copy-btn" onclick="copyToClipboard('summaryText')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="summary-content" id="summaryText"></div>
+                </div>
+
+                <div class="chat-container">
+                    <div class="chat-messages" id="chatMessages">
+                        <div class="message bot-message">
+                            <div class="message-content">
+                                <i class="fas fa-robot"></i>
+                                <p>Hello! I've analyzed your document. Ask me anything about it!</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chat-input-container">
+                        <div class="input-wrapper">
+                            <input type="text" id="chatInput" placeholder="Ask a question about your document..." 
+                                   onkeypress="handleChatKeyPress(event)">
+                            <button class="send-btn" onclick="sendMessage()">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="loading-overlay" id="loadingOverlay" style="display: none;">
+                <div class="loading-content">
+                    <div class="spinner"></div>
+                    <p id="loadingText">Processing your document...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html> 
